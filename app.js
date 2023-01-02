@@ -10,8 +10,9 @@ app.use(cors());
 app.use(morgan("combined"));
 
 
+
 app.get("/ping", (request, response) => {
-  response.status(201).send("pong");
+  response.status(200).send("pong");
 });
 
 const PORT = process.env.PORT;
@@ -25,4 +26,5 @@ const start = async () => {
     console.error(err);
   }
 };
+
 start();
