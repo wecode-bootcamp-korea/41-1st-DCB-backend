@@ -1,0 +1,29 @@
+const signUpService = require("../services/signUpService");
+
+//signUp
+const signUp = async (request, response) => {
+  try {
+    const { name, email, password, phoneNumber } = request.body;
+    console.log(name, email, password, phoneNumber);
+    if (!name || !email || !password || !phoneNumber) {
+      let errorMessage = "";
+      errorMessage += !name ? "name must be provided! " : "";
+      errorMessage += !email ? " email must be provided! " : "";
+      errorMessage += !password ? " password must be provided! " : "";
+      errorMessage += !phoneNumber ? " phoneNumber must be provided!2 " : "";
+      const err = new Error(errorMessage);
+      err.statusCode = 400;
+      throw err;
+    }
+    await signUpService.signUp(name, email, password, phoneNumber);
+    return response.status(201).json({ message: "userCreated" });
+  } catch (err) {
+    console.log(err);
+    return response
+      .status(err.statusCode || 500)
+      .json({ message: err.message });
+  }
+};
+module.exports = {
+  signUp,
+};
