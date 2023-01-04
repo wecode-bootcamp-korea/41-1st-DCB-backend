@@ -3,7 +3,7 @@ CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(100) NOT NULL,
   email varchar(200) NOT NULL,
-  password varchar(200) NOT NULL,
+  password varchar(200) NULL DEFAULT ‘9000000.000’,
   point decimal(10,3) NOT NULL,
   phone_number int DEFAULT NULL,
   created_at timestamp NULL DEFAULT NULL,
