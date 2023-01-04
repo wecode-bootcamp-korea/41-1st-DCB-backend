@@ -2,15 +2,21 @@ const { myDataSource } = require("./myDataSource");
 
 //search if there is a same email address
 const emailCheck = async (email) => {
-  const [result] = await myDataSource.query(
-    `
+  try {
+    const [result] = await myDataSource.query(
+      `
     SELECT 
-    email 
+     email 
     FROM users 
     WHERE email = ?`,
-    [email]
-  );
-  return !result ? true : false;
+      [email]
+    );
+    return !result ? true : false;
+  } catch (err) {
+    const error = new Error("Unknown ERROR during email checking");
+    error.statusCode = 400;
+    throw error;
+  }
 };
 
 const signUp = async (name, email, hashedPassword, phoneNumber) => {
@@ -20,9 +26,8 @@ const signUp = async (name, email, hashedPassword, phoneNumber) => {
       [name, email, hashedPassword, phoneNumber]
     );
   } catch (err) {
-    console.log(err);
     const error = new Error("Unknown ERROR during signUp");
-    error.statusCode = 500;
+    error.statusCode = 400;
     throw error;
   }
 };

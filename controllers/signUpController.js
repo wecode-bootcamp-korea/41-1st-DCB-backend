@@ -1,10 +1,9 @@
 const signUpService = require("../services/signUpService");
 
 //signUp
-const signUp = async (request, response) => {
+const signUp = async (request, response, next) => {
   try {
     const { name, email, password, phoneNumber } = request.body;
-    console.log(name, email, password, phoneNumber);
     if (!name || !email || !password || !phoneNumber) {
       let errorMessage = "";
       errorMessage += !name ? "name must be provided! " : "";
@@ -18,10 +17,7 @@ const signUp = async (request, response) => {
     await signUpService.signUp(name, email, password, phoneNumber);
     return response.status(201).json({ message: "userCreated" });
   } catch (err) {
-    console.log(err);
-    return response
-      .status(err.statusCode || 500)
-      .json({ message: err.message });
+    next(err);
   }
 };
 module.exports = {

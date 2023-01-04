@@ -5,11 +5,13 @@ const morgan = require("morgan");
 
 const { myDataSource } = require("./models/myDataSource");
 const routes = require("./routes/index");
+const { errorHandler } = require("./middleware/errorHandling");
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan("combined"));
 app.use(routes);
+app.use(errorHandler);
 
 app.get("/ping", (request, response) => {
   response.status(200).send("pong");
