@@ -3,7 +3,6 @@ const { myDataSource } = require("./myDataSource");
 
 const getItems = async (itemsId, options) => {
   try {
-    console.log(3)
     const results = await myDataSource.query(
       `
       SELECT
@@ -15,7 +14,8 @@ const getItems = async (itemsId, options) => {
       i.descriptions as iDescriptions,
       i.brand_id as iBrandId,
       o.item_id as oItemId,
-      o.content as oContent
+      o.content as oContent,
+      o.id as oId
       FROM items i
       RIGHT OUTER JOIN options o ON i.id = o.item_id
       WHERE i.id = ?
@@ -31,7 +31,7 @@ const getItems = async (itemsId, options) => {
       FROM options o
 	  INNER JOIN option_categories oc ON o.category_id = oc.id
       LEFT OUTER JOIN items i ON i.id = o.item_id
-      WHERE i.id = 12
+      WHERE i.id = ?
 UNION
 SELECT
       o.category_id as oCategoryId,
@@ -41,9 +41,8 @@ SELECT
       RIGHT OUTER JOIN items i ON i.id = o.item_id
       WHERE i.id = ?;
       `,
-      [options]
+      [itemsId, itemsId]
     )
-    console.log(4)
     return { results, results2 }; // 여기에 itemsId 랑 options 가 같이 나와야하는데...
   } catch (err) {
     const error = new Error("Error");
