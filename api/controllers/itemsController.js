@@ -1,16 +1,16 @@
 const itemsService = require("../services/itemsService");
 const { asyncErrorHandler } = require("../middleware/errorHandling");
 
-const getItems = asyncErrorHandler(async (req, res) => {
+const getItem = asyncErrorHandler(async (req, res) => {
 
-  const { itemsId } = req.params
-  const items = await itemsService.getItems(itemsId);
+  const { itemId } = req.params
+  const item = await itemsService.getItem(itemId);
 
-  return res.status(200).json({ data: items })
+  return res.status(200).json({ data: item })
 
 });
 
 
 module.exports = {
-  getItems
+  getItem
 };

@@ -1,9 +1,9 @@
 
 const { myDataSource } = require("./myDataSource");
 
-const getItems = async (itemsId) => {
+const getItem = async (itemId) => {
   try {
-    const items = await myDataSource.query(
+    const [item] = await myDataSource.query(
       `
       SELECT
         i.id,
@@ -27,19 +27,19 @@ const getItems = async (itemsId) => {
       WHERE i.id = ?
       GROUP BY i.id, oc.category, oc.id;
       `,
-      [itemsId]
+      [itemId]
     );
 
-    return items;
+    return item;
 
   } catch (err) {
-    const error = new Error("Unknown error : getting items");
-    error.statusCode = 404;
+    const error = new Error("Unknown error : getting item");
+    error.statusCode = 400;
     throw error;
   }
 };
 
 
 module.exports = {
-  getItems
+  getItem
 }
