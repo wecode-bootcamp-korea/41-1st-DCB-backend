@@ -23,10 +23,10 @@ const signIn = async (email) => {
 
 const userCartQuantity = async (userId) => {
   try {
-    const cartList = await myDataSource.query(
+    const [cartList] = await myDataSource.query(
       `
       SELECT
-       *
+       COUNT(*)
       FROM
       carts
       WHERE
@@ -34,7 +34,7 @@ const userCartQuantity = async (userId) => {
         `,
       [userId]
     );
-    return cartList.length;
+    return Number(cartList["COUNT(*)"]);
   } catch (err) {
     console.log(err);
     const error = new Error("Unknown ERROR during Cart Quantity");
