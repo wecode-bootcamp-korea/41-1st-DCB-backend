@@ -25,6 +25,12 @@ const deleteCart = async (req, res) => {
 };
 
 
+// 카트 전체삭제 > DELETE /ALL
+// res.status(204)
+const deleteAllCart = async (req, res) => {
+  const
+}
+
 // 장바구니 수량변경 > PATCH /cart
 // res.status(201)
 const updateCart = async (req, res) => {

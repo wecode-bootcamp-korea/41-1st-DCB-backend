@@ -2,7 +2,6 @@ const myDataSource = require("../models/myDataSource");
 
 // carts, item_id, cart_item_id, users(id)
 
-
 // 카트 조회 > GET /cart      // 카트에 물건이 없을땐? 없다고 표시!
 const getCart = async (/*?*/) => {
   return await myDataSource.query(
@@ -35,23 +34,23 @@ const deleteCart = async () => {
 
 // 장바구니 수량변경 > PATCH /cart    //item_id
 const updateCart = async () => {
-  if {
-    return await myDataSource.query(
-      `
+  // if {
+  return await myDataSource.query(
+    `
       UPDATE carts
       SET quantity = quantity+1
       WHERE 1  
       `
-    )
-  } else if {
-    return await myDataSource.query(
-      `
+  )
+  // } else if {
+  return await myDataSource.query(
+    `
       UPDATE carts
       SET quantity = quantity-1
       WHERE 1
       `
-    )
-  }
+  )
+  // }
 };
 
 // 아니면 그냥 변수 두번 설정해서 각각 + - 으로 코드작성
