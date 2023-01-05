@@ -4,9 +4,9 @@ const { asyncErrorHandler } = require("../middleware/errorHandling");
 const getItems = asyncErrorHandler(async (req, res) => {
 
   const { itemsId } = req.params
-  const results = await itemsService.getItems(itemsId);
+  const items = await itemsService.getItems(itemsId);
 
-  return res.status(200).json({ data: results })
+  return res.status(200).json({ data: items })
 
 });
 
