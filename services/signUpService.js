@@ -2,7 +2,6 @@ require("dotenv").config();
 const signUpDao = require("../models/signUpDao");
 
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const signUp = async (name, email, password, phoneNumber) => {
   const result = await signUpDao.emailCheck(email);
