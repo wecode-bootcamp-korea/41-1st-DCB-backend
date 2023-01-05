@@ -3,9 +3,9 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const { myDataSource } = require("./models/myDataSource");
-const routes = require("./routes/index");
-const { errorHandler } = require("./middleware/errorHandling");
+const { myDataSource } = require("./api/models/myDataSource");
+const routes = require("./api/routes/index");
+const { errorHandler } = require("./api/middleware/errorHandling");
 const app = express();
 app.use(express.json());
 app.use(cors());
