@@ -1,51 +1,38 @@
 
 const { myDataSource } = require("./myDataSource");
 
-const getItems = async (itemsId, options) => {
+const getItems = async (itemsId) => {
   try {
     const results = await myDataSource.query(
       `
       SELECT
-      i.id as iId,
-      i.name as iName,
-      i.thumbnail as iThumbnail,
-      i.price as iPrice,
-      i.contents as iContents,
-      i.descriptions as iDescriptions,
-      i.brand_id as iBrandId,
-      o.item_id as oItemId,
-      o.content as oContent,
-      o.id as oId
+      i.id,
+      i.name as product_name,
+      i.thumbnail,
+      i.price,
+      c.name AS product_category,
+      i.contents,
+      i.descriptions,
+      b.name AS brand_name,
+      JSON_ARRAYAGG(JSON_OBJECT("option_id",o.id,"option_content",o.content)) AS options,
+      oc.category AS option_category_name,
+      oc.id AS option_category_id
       FROM items i
-      RIGHT OUTER JOIN options o ON i.id = o.item_id
+      LEFT JOIN category c ON i.category_id = c.id
+      LEFT JOIN brands b ON i.brand_id = b.id
+      LEFT JOIN options o ON o.item_id = i.id
+      LEFT JOIN option_categories oc ON oc.id = o.category_id
       WHERE i.id = ?
+      GROUP BY i.id, oc.category, oc.id;
       `,
       [itemsId]
     );
 
-    const results2 = await myDataSource.query(
-      `
-      SELECT
-      o.category_id as oCategoryId,
-      oc.category as ocCategory
-      FROM options o
-	  INNER JOIN option_categories oc ON o.category_id = oc.id
-      LEFT OUTER JOIN items i ON i.id = o.item_id
-      WHERE i.id = ?
-UNION
-SELECT
-      o.category_id as oCategoryId,
-      oc.category as ocCategory
-      FROM options o
-	  INNER JOIN option_categories oc ON o.category_id = oc.id
-      RIGHT OUTER JOIN items i ON i.id = o.item_id
-      WHERE i.id = ?;
-      `,
-      [itemsId, itemsId]
-    )
-    return { results, results2 }; // 여기에 itemsId 랑 options 가 같이 나와야하는데...
+    return results;
+
   } catch (err) {
-    const error = new Error("Error");
+    console.log(err);
+    const error = new Error("Unknown error : getting items");
     error.statusCode = 404;
     throw error;
   }
