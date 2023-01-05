@@ -12,14 +12,14 @@ const signIn = asyncErrorHandler(async (request, response) => {
     throw err;
   }
 
-  const { userName, userPoint, jwtToken, userCartList } =
+  const { userName, userPoint, jwtToken, userCartQuantity } =
     await signInService.signIn(email, password);
 
   return response.status(200).json({
     name: userName,
     point: userPoint,
     accessToken: jwtToken,
-    userCartList: userCartList,
+    userCartQuantity: userCartQuantity,
   });
 });
 

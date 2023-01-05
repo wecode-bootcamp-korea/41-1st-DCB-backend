@@ -23,12 +23,12 @@ const signIn = async (email, password) => {
 
   const userName = user.name;
   const userPoint = user.point;
-  const userCartList = await signInDao.userCartList(user.id);
+  const userCartQuantity = await signInDao.userCartQuantity(user.id);
 
   //user.id for jwt Payload
   const jwtToken = jwt.sign(user.id, process.env.SECRET_KEY);
 
-  return { userName, userPoint, jwtToken, userCartList };
+  return { userName, userPoint, jwtToken, userCartQuantity };
 };
 
 module.exports = {

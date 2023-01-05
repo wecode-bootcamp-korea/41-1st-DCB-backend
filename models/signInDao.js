@@ -21,40 +21,20 @@ const signIn = async (email) => {
   }
 };
 
-const userCartList = async (userId) => {
+const userCartQuantity = async (userId) => {
   try {
     const cartList = await myDataSource.query(
       `
       SELECT
-       c.id,
-       c.quantity,
-       c.user_id,
-       c.item_id,
-       i.name,
-       i.thumbnail,
-       i.price,
-       JSON_ARRAYAGG(
-        JSON_OBJECT(
-          "option_id",cio.option_id,
-          "categoryName",oc.category,
-          "content",o.content
-          )
-          ) AS optionDescription   
-      FROM carts c
-      INNER JOIN cart_item_options cio 
-      ON cio.cart_item_id=c.id
-      INNER JOIN options o
-      ON cio.option_id=o.id
-      INNER JOIN option_categories oc
-      ON o.category_id=oc.id
-      INNER JOIN items i
-      ON i.id=c.item_id
-      WHERE c.user_id=?
-      GROUP BY c.id;
+       *
+      FROM
+      carts
+      WHERE
+      user_id=?
         `,
       [userId]
     );
-    return cartList;
+    return cartList.length;
   } catch (err) {
     console.log(err);
     const error = new Error("Unknown ERROR during Cart Quantity");
@@ -65,5 +45,5 @@ const userCartList = async (userId) => {
 
 module.exports = {
   signIn,
-  userCartList,
+  userCartQuantity,
 };
