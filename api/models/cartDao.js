@@ -3,21 +3,25 @@ const myDataSource = require("../models/myDataSource");
 // carts, item_id, cart_item_id, users(id)
 
 // 카트 조회 > GET /cart      // 카트에 물건이 없을땐? 없다고 표시!
-const getCart = async (/*?*/) => {
-  return await myDataSource.query(
+const getCart = async (userId) => {
+  const cartList = await myDataSource.query(
     `
       SELECT
-      c.id as cartId,
-      c.quantity as quantity,
-      c.user_id as userId,
-      c.item_id as itemId,
-      i.id as itemId,
-      u.id as userId
+      c.id AS cartId,
+      c.quantity AS quantity,
+      c.user_id AS userId,
+      c.item_id AS itemId,
+      i.id AS itemId,
+      u.id AS userId,
+      cio.cart_item_id AS cartItemId
       FROM carts
       INNER JOIN items i ON i.id = c.item_id
       INNER JOIN users u ON u.id = c.user_id
-      `
+      INNER JOIN cart_item_options cio ON cio.cart_item_id = c.id
+      `,
+    [userId]
   );
+  return cartList;
 };
 
 // 결제하기로 토스
@@ -25,6 +29,7 @@ const getCart = async (/*?*/) => {
 
 
 // 카트 추가
+
 
 
 // 장바구니 수량변경 > PATCH /cart    //item_id

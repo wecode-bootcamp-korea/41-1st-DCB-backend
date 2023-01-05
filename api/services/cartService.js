@@ -28,6 +28,8 @@ const deleteCart = async (cartId, userId) => {
 
 module.exports = {
   getCart,
+  payCart,
+  addCart,
   deleteCart,
   updateCart,
 };
