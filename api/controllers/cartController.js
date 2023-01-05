@@ -14,6 +14,24 @@ const getCart = async (req, res) => {
   }
 };
 
+
+// 장바구니 추가 > POST cart
+// res.status() - 성공적으로 추가함
+// res.status()
+const addCart = async (req, res) => {
+  const blablalba = ddd
+}
+
+// 장바구니 수량변경 > PATCH /cart
+// res.status(201)
+const updateCart = async (req, res) => {
+  const { quantity, itemsId } = req.body
+  const userId = req.users.id
+
+  await cartService.updateCart(quantity, itemsId, userId);
+  res.status(201).json({ message: "Success updating quantities" });
+};
+
 // 카트 선택삭제 > DELETE /cart
 // res.status(204)
 const deleteCart = async (req, res) => {
@@ -30,16 +48,6 @@ const deleteCart = async (req, res) => {
 const deleteAllCart = async (req, res) => {
   const /////////
 }
-
-// 장바구니 수량변경 > PATCH /cart
-// res.status(201)
-const updateCart = async (req, res) => {
-  const { quantity, itemsId } = req.body
-  const userId = req.users.id
-
-  await cartService.updateCart(quantity, itemsId, userId);
-  res.status(201).json({ message: "Success updating quantities" });
-};
 
 module.exports = {
   getCart,
