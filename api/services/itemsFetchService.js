@@ -9,7 +9,9 @@ const sortCategory = {
 
 const itemsFetch = async (request) => {
   let rawQuery;
-  let orderString = sortCategory[request.query.sort] ? true : "created_at DESC";
+  let orderString = sortCategory[request.query.sort]
+    ? sortCategory[request.query.sort]
+    : "created_at DESC";
   console.log(orderString);
   if (request.query.page) {
     rawQuery = `
