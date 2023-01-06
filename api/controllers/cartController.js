@@ -19,34 +19,25 @@ const addCart = asyncErrorHandler(async (req, res) => {
 // const updateCart = asyncErrorHandler(async (req, res) => {
 //   const { quantity, itemsId } = req.body
 //   const userId = req.users.id
-
 //   await cartService.updateCart(quantity, itemsId, userId);
 //   res.status(201).json({ message: "Success updating quantities" });
 // });
 
 
 
-// // 카트 선택삭제 > DELETE /cart
-// // res.status(204)
-// const deleteCart = asyncErrorHandler(async (req, res) => {
-//   const cartId = req.params.cartId
-//   const userId = req.users.id
+// 카트 삭제 > DELETE /cart
+// res.status(204)
+const deleteCart = asyncErrorHandler(async (req, res) => {
+  const cartId = req.params.cartId
 
-//   await cartService.deleteCart(cartId, userId);
-//   res.status(204).json({ message: "Success delete cart list" });
-// });
+  await cartService.deleteCart(cartId);
+  res.status(204).json({ message: "Success delete cart list" });
+});
 
-
-// // 카트 전체삭제 > DELETE /ALL
-// // res.status(204)
-// const deleteAllCart = asyncErrorHandler(async (req, res) => {
-//   const /////////
-// });
 
 module.exports = {
   getCart,
   addCart,
   // updateCart,
-  // deleteCart,
-  // deleteAllCart
+  deleteCart
 }

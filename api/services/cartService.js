@@ -18,17 +18,15 @@ const addCart = async (itemId, optionId) => {
 //   return await cartDao.updateCart(quantity, itemsId, userId);
 // };
 
-// // 카트 선택삭제 > DELETE /cart
-// const deleteCart = async (cartId, userId) => {
-//   return await cartDao.deleteCart(cartId, userId);
-// };
-
+// 카트 선택삭제 > DELETE /cart
+const deleteCart = async (cartId) => {
+  return await cartDao.deleteCart(cartId);
+};
 
 
 module.exports = {
   getCart,
   addCart,
   // updateCart,
-  // deleteCart,
-  // deleteAllCart
+  deleteCart
 };

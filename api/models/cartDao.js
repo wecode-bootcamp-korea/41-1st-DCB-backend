@@ -58,12 +58,6 @@ const addCart = async (itemId, optionId) => {
   return added;
 };
 
-
-
-
-
-
-
 // // 장바구니 수량변경 > PATCH /cart    //item_id
 // const updateCart = async () => {
 //   // if {
@@ -89,21 +83,18 @@ const addCart = async (itemId, optionId) => {
 
 
 
-// // 카트 선택삭제 > DELETE /cart
-// const deleteCart = async () => {
-//   return await myDataSource.query(
-//     `
-//     DELETE
-//     FROM
-//     carts
-//     WHERE 체크한것만 삭제해야 하는데 그 체크를 조건화 하는걸 어카는지 모루겠네
-//     `
-//   );
-// };
-
-
-// // 카트 전체삭제
-
+// 카트 선택삭제 > DELETE /cart
+const deleteCart = async (cartId) => {
+  return await myDataSource.query(
+    `
+    DELETE FROM
+      carts
+    WHERE
+      carts.id IN (?);
+    `,
+    [cartId]
+  );
+};
 
 
 
@@ -111,6 +102,5 @@ module.exports = {
   getCart,
   addCart,
   // updateCart,
-  // deleteCart,
-  // deleteAllCart
+  deleteCart
 };
