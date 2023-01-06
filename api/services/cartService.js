@@ -8,8 +8,8 @@ const getCart = async (userId) => {
 };
 
 // 카트 추가
-const addCart = async (itemId) => {
-  const added = await cartDao.addCart(itemId);
+const addCart = async (itemId, optionId) => {
+  const added = await cartDao.addCart(itemId, optionId);
   return await added;
 };
 
@@ -28,7 +28,7 @@ const addCart = async (itemId) => {
 module.exports = {
   getCart,
   addCart,
-  updateCart,
+  // updateCart,
   // deleteCart,
   // deleteAllCart
 };

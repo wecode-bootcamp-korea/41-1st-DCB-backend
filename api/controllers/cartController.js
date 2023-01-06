@@ -11,18 +11,18 @@ const getCart = asyncErrorHandler(async (req, res) => {
 // 장바구니 추가 > POST cart
 // res.status(201) - 성공적으로 추가함
 const addCart = asyncErrorHandler(async (req, res) => {
-  const added = await cartService.addCart(req.itemId);
+  const added = await cartService.addCart(req.query.itemId, req.query.optionId);
   return res.status(201).json({ data: added });
 });
 
 // 장바구니 수량변경 > PATCH /cart
-const updateCart = asyncErrorHandler(async (req, res) => {
-  const { quantity, itemsId } = req.body
-  const userId = req.users.id
+// const updateCart = asyncErrorHandler(async (req, res) => {
+//   const { quantity, itemsId } = req.body
+//   const userId = req.users.id
 
-  await cartService.updateCart(quantity, itemsId, userId);
-  res.status(201).json({ message: "Success updating quantities" });
-});
+//   await cartService.updateCart(quantity, itemsId, userId);
+//   res.status(201).json({ message: "Success updating quantities" });
+// });
 
 
 
@@ -46,7 +46,7 @@ const updateCart = asyncErrorHandler(async (req, res) => {
 module.exports = {
   getCart,
   addCart,
-  updateCart,
+  // updateCart,
   // deleteCart,
   // deleteAllCart
 }

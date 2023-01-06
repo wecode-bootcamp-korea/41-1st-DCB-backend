@@ -34,12 +34,26 @@ const getCart = async (userId) => {
 
 
 // 카트 추가
-const addCart = async (ItemId) => {
+const addCart = async (itemId, optionId) => {
   const added = await myDataSource.query(
     `
-
+    SELECT
+      i.id AS iId,
+      i.name AS iName,
+      i.thumbnail AS iThumbnail,
+      i.price AS iPrice,
+      
+      JSON_ARRAYAGG(
+      JSON_OBJECT(
+      "option_id",o.item_id,
+      "option_name",o.content 
+      )
+      ) AS optionDescription
+    FROM items i
+    INNER JOIN options o ON o.item_id = i.id
+    WHERE i.id = ? AND o.id = ?
     `,
-    [itemId]
+    [itemId, optionId]
   );
   return added;
 };
@@ -96,7 +110,7 @@ const addCart = async (ItemId) => {
 module.exports = {
   getCart,
   addCart,
-  updateCart,
+  // updateCart,
   // deleteCart,
   // deleteAllCart
 };
