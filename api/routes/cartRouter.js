@@ -3,17 +3,14 @@ const router = express.Router();
 const cartController = require("../controllers/cartController");
 const validateToken = require("../middleware/auth");
 
-// 카트 조회
+
 router.get("", validateToken, cartController.getCart);
 
-// // 결제로 토스
-// router.post("/cart", cartController.payCart);
+// 장바구니 추가
+router.post("/add", cartController.addCart);
 
-// // 장바구니 추가
-// router.post("/add", cartController.addCart);
-
-// // 장바구니 수량변경 > PATCH /cart
-// router.patch("/quantity", cartController.updateQuantityCart);
+// 장바구니 수량변경 > PATCH /cart
+router.patch("/quantity", cartController.updateCart);
 
 // // 카트 선택삭제 > DELETE /cart
 // router.delete("/cart", cartController.deleteCart);

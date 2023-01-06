@@ -2,18 +2,16 @@ require("dotenv").config();
 const cartDao = require("../models/cartDao");
 
 
-
-// 카트 조회 > GET /cart
 const getCart = async (userId) => {
   const cartList = await cartDao.getCart(userId);
   return await cartList;
 };
 
-// // 결제로 토스
-// const payCart = async
-
-// // 카트 추가
-// const addCart = async
+// 카트 추가
+const addCart = async (itemId) => {
+  const added = await cartDao.addCart(itemId);
+  return await added;
+};
 
 // // 장바구니 수량변경 > PATCH /cart
 // const updateCart = async (quantity, itemsId, userId) => {
@@ -29,8 +27,8 @@ const getCart = async (userId) => {
 
 module.exports = {
   getCart,
-  // payCart,
-  // addCart,
+  addCart,
+  updateCart,
   // deleteCart,
-  // updateCart,
+  // deleteAllCart
 };

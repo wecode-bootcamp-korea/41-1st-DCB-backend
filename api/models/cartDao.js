@@ -32,11 +32,21 @@ const getCart = async (userId) => {
   return cartList;
 };
 
-// // 결제하기로 토스
+
+// 카트 추가
+const addCart = async (ItemId) => {
+  const added = await myDataSource.query(
+    `
+
+    `,
+    [itemId]
+  );
+  return added;
+};
 
 
 
-// // 카트 추가
+
 
 
 
@@ -85,6 +95,8 @@ const getCart = async (userId) => {
 
 module.exports = {
   getCart,
+  addCart,
+  updateCart,
   // deleteCart,
-  // updateCart,
+  // deleteAllCart
 };
