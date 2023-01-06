@@ -1,23 +1,31 @@
-const myDataSource = require("../models/myDataSource");
+const { myDataSource } = require("./myDataSource");
 
-// carts, item_id, cart_item_id, users(id)
 
-// 카트 조회 > GET /cart      // 카트에 물건이 없을땐? 없다고 표시!
 const getCart = async (userId) => {
   const cartList = await myDataSource.query(
     `
-      SELECT
-      c.id AS cartId,
-      c.quantity AS quantity,
-      c.user_id AS userId,
-      c.item_id AS itemId,
-      i.id AS itemId,
-      u.id AS userId,
-      cio.cart_item_id AS cartItemId
-      FROM carts
-      INNER JOIN items i ON i.id = c.item_id
-      INNER JOIN users u ON u.id = c.user_id
-      INNER JOIN cart_item_options cio ON cio.cart_item_id = c.id
+  SELECT
+    c.id AS cId,
+    c.quantity AS cQuantity,
+    c.user_id AS cUserId,
+    c.item_id AS cItemId,
+    i.name AS iName,
+    i.thumbnail AS iThumbnail,
+    i.price AS iPrice,
+    JSON_ARRAYAGG(
+    JSON_OBJECT(
+     "option_id",cio.option_id,
+     "categoryName",oc.category,
+     "content",o.content
+     )
+     ) AS optionDescription  
+  FROM carts c
+  INNER JOIN cart_item_options cio ON cio.cart_item_id=c.id
+  INNER JOIN options o ON cio.option_id=o.id
+  INNER JOIN option_categories oc ON o.category_id=oc.id
+  INNER JOIN items i ON i.id=c.item_id
+  WHERE c.user_id=?
+  GROUP BY c.id;
       `,
     [userId]
   );

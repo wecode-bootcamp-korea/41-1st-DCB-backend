@@ -2,11 +2,11 @@ require("dotenv").config();
 const cartDao = require("../models/cartDao");
 
 
+
 // 카트 조회 > GET /cart
 const getCart = async (userId) => {
   const cartList = await cartDao.getCart(userId);
-
-  return await cartDao.getCartList(cartList);
+  return await cartList;
 };
 
 // // 결제로 토스

@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const cartController = require("../controllers/cartController");
+const validateToken = require("../middleware/auth");
 
 // 카트 조회
-router.get("/cart", cartController.getCart);
+router.get("", validateToken, cartController.getCart);
 
 // // 결제로 토스
 // router.post("/cart", cartController.payCart);

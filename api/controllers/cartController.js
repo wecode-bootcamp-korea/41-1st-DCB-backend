@@ -5,8 +5,8 @@ const { asyncErrorHandler } = require("../middleware/errorHandling");
 // res.status(200) - 리스트 성공적으로 가져옴
 // res.status(401)
 const getCart = asyncErrorHandler(async (req, res) => {
-  const { userId } = req.params
-  const cartList = await cartService.getCart(userId);
+
+  const cartList = await cartService.getCart(req.userId);
   return res.status(200).json({ data: cartList });
 });
 
