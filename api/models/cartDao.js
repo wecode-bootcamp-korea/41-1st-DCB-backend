@@ -57,14 +57,29 @@ const addCart = async (itemId, optionId) => {
   return added;
 };
 
+const modifyQuantity = async (userId, cartId, quantity) => {
+  return await myDataSource.query(
+    `
+    UPDATE
+
+    SET
+
+    WHERE
+    `,
+    [userId, cartId, quantity]
+  )
+}
+
+
+
 
 const deleteCart = async (cartId) => {
-  return await myDataSource.query(
+  const del = await myDataSource.query(
     `
     DELETE FROM
       carts
     WHERE
-      carts.id IN (?);
+      carts.id = ?
     `,
     [cartId]
   );
@@ -75,5 +90,6 @@ const deleteCart = async (cartId) => {
 module.exports = {
   getCart,
   addCart,
+  modifyQuantity,
   deleteCart
 };

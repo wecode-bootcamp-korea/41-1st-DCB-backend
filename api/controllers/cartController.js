@@ -15,16 +15,27 @@ const addCart = asyncErrorHandler(async (req, res) => {
 });
 
 
-const deleteCart = asyncErrorHandler(async (req, res) => {
-  const cartId = req.params.cartId
+const modifyQuantity = asyncErrorHandler(async (req, res) => {
+  const { cartId } = req.body;
+  const { quantity } = req.body;
 
-  await cartService.deleteCart(cartId);
-  res.status(204).json({ message: "Success delete cart list" });
+  await cartService.modifyQuantity(req.userId, cartId, quantity);
+  const list = await cartService.Lists(req.userId);
+
+  return res.status(201).json({ data: list });
+})
+
+
+const deleteCart = asyncErrorHandler(async (req, res) => {
+  const { cartId } = await cartService.deleteCart(req.params.cartId);
+
+  res.status(201).json({ message: "delete complete" });
 });
 
 
 module.exports = {
   getCart,
   addCart,
+  modifyQuantity,
   deleteCart
 }

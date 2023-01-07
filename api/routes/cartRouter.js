@@ -7,10 +7,11 @@ const validateToken = require("../middleware/auth");
 router.get("", validateToken, cartController.getCart);
 
 
-router.post("/items", cartController.addCart);
+router.post("", cartController.addCart);
 
+router.patch("", cartController.modifyQuantity);
 
-router.delete("/carts", cartController.deleteCart);
+router.delete("", cartController.deleteCart);
 
 
 module.exports = {
