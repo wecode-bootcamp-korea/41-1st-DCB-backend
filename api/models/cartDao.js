@@ -74,7 +74,7 @@ const modifyQuantity = async (userId, cartId, quantity) => {
 
 
 const deleteCart = async (cartId) => {
-  const del = await myDataSource.query(
+  const result = await myDataSource.query(
     `
     DELETE FROM
       carts
@@ -83,6 +83,7 @@ const deleteCart = async (cartId) => {
     `,
     [cartId]
   );
+  return result;
 };
 
 

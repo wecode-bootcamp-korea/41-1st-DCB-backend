@@ -11,7 +11,7 @@ router.post("", cartController.addCart);
 
 router.patch("", cartController.modifyQuantity);
 
-router.delete("", cartController.deleteCart);
+router.delete("/:cartId", cartController.deleteCart);
 
 
 module.exports = {
