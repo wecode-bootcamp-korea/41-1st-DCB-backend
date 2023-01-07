@@ -38,7 +38,6 @@ const getItemsList = async (extraQuery) => {
   try {
     return await myDataSource.query(defaultQuery + extraQuery);
   } catch (err) {
-    console.log(err);
     const error = new Error("Unknwon ERROR in itemsList");
     error.statusCode = 400;
     throw error;

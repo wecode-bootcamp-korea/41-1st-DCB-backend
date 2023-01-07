@@ -44,8 +44,7 @@ const getItem = async (itemId) => {
     throw err;
   }
 
-  extraQuery = whereQuery.getItemById + groupByQuery;
-  return await itemsDao.getItem(itemId, extraQuery);
+  return item;
 };
 
 const getItemsList = async (orderString, category, pageNumber) => {
