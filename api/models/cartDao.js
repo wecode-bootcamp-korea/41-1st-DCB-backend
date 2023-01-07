@@ -5,27 +5,27 @@ const getCart = async (userId) => {
   const cartList = await myDataSource.query(
     `
   SELECT
-    c.id AS cId,
-    c.quantity AS cQuantity,
-    c.user_id AS cUserId,
-    c.item_id AS cItemId,
-    i.name AS iName,
-    i.thumbnail AS iThumbnail,
-    i.price AS iPrice,
+    c.id AS cartId,
+    c.quantity AS cartQuantity,
+    c.user_id AS cartUserId,
+    c.item_id AS cartItemId,
+    i.name AS itemsName,
+    i.thumbnail AS itemsThumbnail,
+    i.price AS itemsPrice,
     JSON_ARRAYAGG(
     JSON_OBJECT(
-     "option_id",cio.option_id,
-     "categoryName",oc.category,
-     "content",o.content
+     "option_id",cartItemOptions.option_id,
+     "categoryName",optionCategory.category,
+     "content",options.content
      )
      ) AS optionDescription  
   FROM carts c
-  INNER JOIN cart_item_options cio ON cio.cart_item_id=c.id
-  INNER JOIN options o ON cio.option_id=o.id
-  INNER JOIN option_categories oc ON o.category_id=oc.id
-  INNER JOIN items i ON i.id=c.item_id
-  WHERE c.user_id=?
-  GROUP BY c.id;
+  INNER JOIN cart_item_options cio ON cartItemOptions.cart_item_id=cart.id
+  INNER JOIN options o ON cartItemOptions.option_id=options.id
+  INNER JOIN option_categories oc ON options.category_id=optionCategory.id
+  INNER JOIN items i ON items.id=cart.item_id
+  WHERE cart.user_id=?
+  GROUP BY cart.id;
       `,
     [userId]
   );
@@ -33,57 +33,31 @@ const getCart = async (userId) => {
 };
 
 
-// 카트 추가
 const addCart = async (itemId, optionId) => {
   const added = await myDataSource.query(
     `
     SELECT
-      i.id AS iId,
-      i.name AS iName,
-      i.thumbnail AS iThumbnail,
-      i.price AS iPrice,
+      i.id AS itemId,
+      i.name AS itemName,
+      i.thumbnail AS itemThumbnail,
+      i.price AS itemPrice,
       
       JSON_ARRAYAGG(
       JSON_OBJECT(
-      "option_id",o.item_id,
-      "option_name",o.content 
+      "option_id",option.item_id,
+      "option_name",option.content 
       )
       ) AS optionDescription
     FROM items i
-    INNER JOIN options o ON o.item_id = i.id
-    WHERE i.id = ? AND o.id = ?
+    INNER JOIN options o ON option.item_id = items.id
+    WHERE items.id = ? AND options.id = ?
     `,
     [itemId, optionId]
   );
   return added;
 };
 
-// // 장바구니 수량변경 > PATCH /cart    //item_id
-// const updateCart = async () => {
-//   // if {
-//   return await myDataSource.query(
-//     `
-//       UPDATE carts
-//       SET quantity = quantity+1
-//       WHERE 1  
-//       `
-//   )
-//   // } else if {
-//   return await myDataSource.query(
-//     `
-//       UPDATE carts
-//       SET quantity = quantity-1
-//       WHERE 1
-//       `
-//   )
-//   // }
-// };
 
-// // 아니면 그냥 변수 두번 설정해서 각각 + - 으로 코드작성
-
-
-
-// 카트 선택삭제 > DELETE /cart
 const deleteCart = async (cartId) => {
   return await myDataSource.query(
     `
@@ -101,6 +75,5 @@ const deleteCart = async (cartId) => {
 module.exports = {
   getCart,
   addCart,
-  // updateCart,
   deleteCart
 };
