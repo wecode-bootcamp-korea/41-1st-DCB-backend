@@ -27,7 +27,7 @@ const modifyQuantity = asyncErrorHandler(async (req, res) => {
 
 
 const deleteCart = asyncErrorHandler(async (req, res) => {
-  const { cartId } = await cartService.deleteCart(req.params.cartId);
+  const cartId = await cartService.deleteCart(req.params.cartId);
 
   res.status(201).json({ message: "delete complete" });
 });
