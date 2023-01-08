@@ -13,18 +13,18 @@ const getCart = async (userId) => {
     i.price AS itemsPrice,
     JSON_ARRAYAGG(
     JSON_OBJECT(
-     "option_id",cartItemOptions.option_id,
-     "categoryName",optionCategory.category,
-     "content",options.content
+     "option_id",cio.option_id,
+     "categoryName",oc.category,
+     "content",o.content
      )
      ) AS optionDescription  
   FROM carts c
-  INNER JOIN cart_item_options cio ON cartItemOptions.cart_item_id=cart.id
-  INNER JOIN options o ON cartItemOptions.option_id=options.id
-  INNER JOIN option_categories oc ON options.category_id=optionCategory.id
-  INNER JOIN items i ON items.id=cart.item_id
-  WHERE cart.user_id=?
-  GROUP BY cart.id;
+  INNER JOIN cart_item_options cio ON cio.cart_item_id=c.id
+  INNER JOIN options o ON cio.option_id=o.id
+  INNER JOIN option_categories oc ON o.category_id=oc.id
+  INNER JOIN items i ON i.id=c.item_id
+  WHERE c.user_id=?
+  GROUP BY c.id;
       `,
     [userId]
   );
@@ -52,7 +52,7 @@ const addCart = async (userId, itemId, optionId) => { // select > update
     `
     INSERT INTO
       carts (user_id, item_id, option_id, quantity)
-    VALUES (?,?,1)
+    VALUES (?, ?, ?, 1)
     `,
     [userId, itemId, optionId]
   );
