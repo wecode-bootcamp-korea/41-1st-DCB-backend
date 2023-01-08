@@ -1,6 +1,5 @@
 const { myDataSource } = require("./myDataSource");
 
-
 const getCart = async (userId) => {
   const cartList = await myDataSource.query(
     `
@@ -32,46 +31,71 @@ const getCart = async (userId) => {
   return cartList;
 };
 
-
-const addCart = async (itemId, optionId) => {
+const addCart = async (itemId, optionId) => { // select > update = 도와줘요 종호에모오옹
   const added = await myDataSource.query(
+    // `
+    // SELECT
+    //   i.id AS itemId,
+    //   i.name AS itemName,
+    //   i.thumbnail AS itemThumbnail,
+    //   i.price AS itemPrice,
+    //   JSON_ARRAYAGG(
+    //   JSON_OBJECT(
+    //   "option_id",option.item_id,
+    //   "option_name",option.content
+    //   )
+    //   ) AS optionDescription
+    // FROM items i
+    // INNER JOIN options o ON option.item_id = items.id
+    // WHERE items.id = ? AND options.id = ?
+    // `,
     `
-    SELECT
-      i.id AS itemId,
-      i.name AS itemName,
-      i.thumbnail AS itemThumbnail,
-      i.price AS itemPrice,
-      
-      JSON_ARRAYAGG(
-      JSON_OBJECT(
-      "option_id",option.item_id,
-      "option_name",option.content 
-      )
-      ) AS optionDescription
-    FROM items i
-    INNER JOIN options o ON option.item_id = items.id
-    WHERE items.id = ? AND options.id = ?
+
     `,
     [itemId, optionId]
   );
   return added;
 };
 
-const modifyQuantity = async (userId, cartId, quantity) => {
-  return await myDataSource.query(
+const plusQuantity = async (userId, cartId) => { //upsert 빼자
+  const result = await myDataSource.query(
+    // `
+    // INSERT INTO
+    //   carts (quantity,user_id,item_id)
+    // VALUES
+    //   (1,?,?)
+    // ON DUPLICATE KEY UPDATE
+    //   quantity = quantity + 1,user_id=?,item_id=?
+    // WHERE
+    //   carts.id = ? AND carts.user_id = ?;
+    // `,
     `
     UPDATE
-
+      carts
     SET
-
+      quantity = count + 1
     WHERE
+      carts.id = ? AND users.id = ?
     `,
-    [userId, cartId, quantity]
+    [cartId, userId]
   )
+  return result;
 }
 
-
-
+const minusQuantity = async (userId, cartId) => {
+  const result = await myDataSource.query(
+    `
+    UPDATE
+      carts
+    SET
+      quantity = count - 1
+    WHERE
+      carts.id = ? AND users.id = ?
+    `,
+    [userId, cartId]
+  )
+  return result;
+}
 
 const deleteCart = async (cartId) => {
   const result = await myDataSource.query(
@@ -86,11 +110,10 @@ const deleteCart = async (cartId) => {
   return result;
 };
 
-
-
 module.exports = {
   getCart,
   addCart,
-  modifyQuantity,
+  plusQuantity,
+  minusQuantity,
   deleteCart
 };
