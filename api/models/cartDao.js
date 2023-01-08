@@ -97,7 +97,7 @@ const minusQuantity = async (userId, cartId) => {
   return result;
 }
 
-const deleteCart = async (cartId) => {
+const deleteCart = async (cartId) => { // 선택한 cartId를 배열로 보내주신다 -세윤님 > 그럼 cartId 를 배열로 받을 수 있나?
   const result = await myDataSource.query(
     `
     DELETE FROM
