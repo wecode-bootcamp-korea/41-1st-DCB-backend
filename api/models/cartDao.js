@@ -31,7 +31,7 @@ const getCart = async (userId) => {
   return cartList;
 };
 
-const addCart = async (itemId, optionId) => { // select > update = 도와줘요 종호에모오옹
+const addCart = async (userId, itemId, optionId) => { // select > update
   const added = await myDataSource.query(
     // `
     // SELECT
@@ -50,9 +50,11 @@ const addCart = async (itemId, optionId) => { // select > update = 도와줘요 
     // WHERE items.id = ? AND options.id = ?
     // `,
     `
-
+    INSERT INTO
+      carts (user_id, item_id, option_id, quantity)
+    VALUES (?,?,1)
     `,
-    [itemId, optionId]
+    [userId, itemId, optionId]
   );
   return added;
 };
