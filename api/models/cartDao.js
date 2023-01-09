@@ -23,7 +23,6 @@ const getCart = async (userId) => {
   INNER JOIN options o ON cio.option_id=o.id
   INNER JOIN option_categories oc ON o.category_id=oc.id
   INNER JOIN items i ON i.id=c.item_id
-  WHERE c.user_id=?
   GROUP BY c.id;
       `,
     [userId]
@@ -54,53 +53,7 @@ const addCart = async (userId, itemId, optionId) => {
   return added;
 };
 
-const plusQuantity = async (cartId, userId) => {
-  const result = await myDataSource.query(
-    `
-    UPDATE
-      carts
-    SET
-      quantity = quantity + 1
-    WHERE
-      carts.id = ? AND user_id = ?
-    `,
-    [cartId, userId]
-  );
-  return result;
-};
-
-const minusQuantity = async (cartId, userId) => {
-  const result = await myDataSource.query(
-    `
-    UPDATE
-      carts
-    SET
-      quantity = quantity - 1
-    WHERE
-      carts.id = ? AND user_id = ?
-    `,
-    [cartId, userId]
-  );
-  return result;
-};
-
-const deleteCart = async (cartId) => {
-  const result = await myDataSource.query(
-    `
-    DELETE FROM
-      carts
-    WHERE
-      carts.id = ?
-    `,
-    [cartId]
-  );
-  return result;
-};
-
 module.exports = {
   getCart,
   addCart,
-  plusQuantity,
-  minusQuantity,
-  deleteCart
 };
