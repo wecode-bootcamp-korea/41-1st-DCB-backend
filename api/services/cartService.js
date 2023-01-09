@@ -11,7 +11,24 @@ const addCart = async (userId, itemId, optionId) => {
   return added;
 };
 
+const plusQuantity = async (cartId, userId) => {
+  const result = await cartDao.plusQuantity(userId, cartId);
+  return await result;
+};
+
+const minusQuantity = async (cartId, userId) => {
+  const result = await cartDao.minusQuantity(userId, cartId);
+  return await result;
+};
+
+const deleteCart = async (cartId) => {
+  return await cartDao.deleteCart(cartId);
+};
+
 module.exports = {
   getCart,
   addCart,
+  plusQuantity,
+  minusQuantity,
+  deleteCart
 };
