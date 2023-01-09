@@ -13,13 +13,11 @@ const addCart = async (userId, itemId, optionId) => {
 
 const plusQuantity = async (cartId, userId) => {
   const result = await cartDao.plusQuantity(userId, cartId);
-
   return await result;
 };
 
 const minusQuantity = async (cartId, userId) => {
   const result = await cartDao.minusQuantity(userId, cartId);
-
   return await result;
 };
 
