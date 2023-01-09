@@ -31,75 +31,62 @@ const getCart = async (userId) => {
   return cartList;
 };
 
-const addCart = async (userId, itemId, optionId) => { // select > update
-  const added = await myDataSource.query(
-    // `
-    // SELECT
-    //   i.id AS itemId,
-    //   i.name AS itemName,
-    //   i.thumbnail AS itemThumbnail,
-    //   i.price AS itemPrice,
-    //   JSON_ARRAYAGG(
-    //   JSON_OBJECT(
-    //   "option_id",option.item_id,
-    //   "option_name",option.content
-    //   )
-    //   ) AS optionDescription
-    // FROM items i
-    // INNER JOIN options o ON option.item_id = items.id
-    // WHERE items.id = ? AND options.id = ?
-    // `,
+const addCart = async (userId, itemId, optionId) => {
+  // try {
+  return await myDataSource.query(
     `
     INSERT INTO
-      carts (user_id, item_id, option_id, quantity)
-    VALUES (?, ?, ?, 1)
+      carts (user_id, item_id, quantity)
+    VALUES (?, ?, 1)
     `,
-    [userId, itemId, optionId]
-  );
-  return added;
+    [userId, itemId]
+  )
+  // const result = await myDataSource.query(
+  //   `
+  //   INSERT INTO
+  //     cart_item_options(cart_item_id,option_id)
+  //   SELECT carts.id, ? FROM carts WHERE carts.user_id=? AND carts.item_id=?
+  //   `,
+  //   [userId, itemId, optionId]
+  // );
+  // }
+  // catch (e) {
+  //   console.log(e);
+  // }
+
 };
 
-const plusQuantity = async (userId, cartId) => { //upsert 빼자
+const plusQuantity = async (cartId, userId) => {
   const result = await myDataSource.query(
-    // `
-    // INSERT INTO
-    //   carts (quantity,user_id,item_id)
-    // VALUES
-    //   (1,?,?)
-    // ON DUPLICATE KEY UPDATE
-    //   quantity = quantity + 1,user_id=?,item_id=?
-    // WHERE
-    //   carts.id = ? AND carts.user_id = ?;
-    // `,
     `
     UPDATE
       carts
     SET
-      quantity = count + 1
+      quantity = quantity + 1
     WHERE
-      carts.id = ? AND users.id = ?
+      carts.id = ? AND user_id = ?
     `,
     [cartId, userId]
   )
   return result;
 }
 
-const minusQuantity = async (userId, cartId) => {
+const minusQuantity = async (cartId, userId) => {
   const result = await myDataSource.query(
     `
     UPDATE
       carts
     SET
-      quantity = count - 1
+      quantity = quantity - 1
     WHERE
-      carts.id = ? AND users.id = ?
+      carts.id = ? AND user_id = ?
     `,
-    [userId, cartId]
+    [cartId, userId]
   )
   return result;
 }
 
-const deleteCart = async (cartId) => { // 선택한 cartId를 배열로 보내주신다 -세윤님 > 그럼 cartId 를 배열로 받을 수 있나?
+const deleteCart = async (cartId) => {
   const result = await myDataSource.query(
     `
     DELETE FROM

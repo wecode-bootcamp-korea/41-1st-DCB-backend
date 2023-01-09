@@ -9,7 +9,7 @@ router.post("", validateToken, cartController.addCart);
 
 router.post("/plus/:cartId", validateToken, cartController.plusQuantity);
 
-router.patch("/minus/:cartId", validateToken, cartController.minusQuantity);
+router.post("/minus/:cartId", validateToken, cartController.minusQuantity);
 
 router.delete("/:cartId", validateToken, cartController.deleteCart);
 

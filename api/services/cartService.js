@@ -8,20 +8,20 @@ const getCart = async (userId) => {
 
 const addCart = async (userId, itemId, optionId) => {
   const added = await cartDao.addCart(userId, itemId, optionId);
-  return await added;
+  return added;
 };
 
-const plusQuantity = async (userId, cartId) => {
+const plusQuantity = async (cartId, userId) => {
   const result = await cartDao.plusQuantity(userId, cartId);
 
   return await result;
-}
+};
 
-const minusQuantity = async (userId, cartId) => {
+const minusQuantity = async (cartId, userId) => {
   const result = await cartDao.minusQuantity(userId, cartId);
 
   return await result;
-}
+};
 
 const deleteCart = async (cartId) => {
   return await cartDao.deleteCart(cartId);
