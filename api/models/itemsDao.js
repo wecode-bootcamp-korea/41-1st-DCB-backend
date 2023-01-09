@@ -1,30 +1,10 @@
 const { myDataSource } = require("./myDataSource");
+const itemsQuery = require("./itemsQuery");
 
-let defaultQuery = `
-SELECT
-i.id,
-i.name as product_name,
-i.thumbnail,
-i.price,
-c.name AS product_category,
-i.contents,
-i.descriptions,
-b.name AS brand_name,
-JSON_ARRAYAGG(
-  JSON_OBJECT("option_id",o.id,"option_content",o.content)
-) AS options,
-oc.category AS option_category_name,
-oc.id AS option_category_id
-FROM items i
-LEFT JOIN category c ON i.category_id = c.id
-LEFT JOIN brands b ON i.brand_id = b.id
-LEFT JOIN options o ON o.item_id = i.id
-LEFT JOIN option_categories oc ON oc.id = o.category_id
-`;
-
-const getItem = async (itemId, extraQuery) => {
+const getItem = async (itemId) => {
   try {
-    const item = await myDataSource.query(defaultQuery + extraQuery, [itemId]);
+    const query = await itemsQuery.getItemOrList();
+    const item = await myDataSource.query(query, [itemId]);
 
     return item;
   } catch (err) {
@@ -34,9 +14,10 @@ const getItem = async (itemId, extraQuery) => {
   }
 };
 
-const getItemsList = async (extraQuery) => {
+const getItemsList = async (sort, category, page, search) => {
   try {
-    return await myDataSource.query(defaultQuery + extraQuery);
+    const query = await itemsQuery.getItemOrList(sort, category, page, search);
+    return await myDataSource.query(query);
   } catch (err) {
     const error = new Error("Unknwon ERROR in itemsList");
     error.statusCode = 400;

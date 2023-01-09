@@ -1,42 +1,8 @@
 require("dotenv").config();
 const itemsDao = require("../models/itemsDao");
 
-//WHERE QUERY
-const whereQuery = {
-  getItemById: `WHERE i.id = ? `,
-
-  //IF YOU WANT TO SEE CATEGORY PAGES
-  categoryPage: (category) => {
-    return `WHERE i.category_id=${Number(category)} `;
-  },
-
-  theOtherPages: `WHERE TRUE `,
-};
-
-//DEFAULT GROUP BY QUERY
-const groupByQuery = `GROUP BY i.id, oc.category, oc.id `;
-
-//ORDER BY QUERY
-const orderByQuery = (orderString) => {
-  return `ORDER BY ${orderString} `;
-};
-
-//LIMIT QUERY
-const limitQuery = {
-  //DEFAULT LIMIT WOULD BE 8
-  mainPage: `LIMIT 8;`,
-
-  //PAGINATION IN OTHER PAGES
-  theOtherPages: (pageNumber) => {
-    return `LIMIT ${20 * (pageNumber - 1)},20;`;
-  },
-};
-
-let extraQuery;
-
 const getItem = async (itemId) => {
-  extraQuery = whereQuery.getItemById + groupByQuery;
-  const item = await itemsDao.getItem(itemId, extraQuery);
+  const item = await itemsDao.getItem(itemId);
 
   if (item.length === 0) {
     const err = new Error("NOT FOUND : Item No.");
@@ -47,16 +13,16 @@ const getItem = async (itemId) => {
   return item;
 };
 
-const getItemsList = async (orderString, category, pageNumber) => {
-  extraQuery =
-    (category > 0
-      ? whereQuery.categoryPage(category)
-      : whereQuery.theOtherPages) +
-    groupByQuery +
-    orderByQuery(orderString) +
-    (!category ? limitQuery.mainPage : limitQuery.theOtherPages(pageNumber));
+const getItemsList = async (sort, category, page, search) => {
+  const result = await itemsDao.getItemsList(sort, category, page, search);
 
-  return await itemsDao.getItemsList(extraQuery);
+  if (result.length === 0) {
+    const err = new Error("CANNOT FOUND ITEMS");
+    err.statusCode = 404;
+    throw err;
+  }
+
+  return result;
 };
 
 module.exports = {
