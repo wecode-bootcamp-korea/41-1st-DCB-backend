@@ -10,8 +10,3 @@ router.use("/signup", signUpRouter.router);
 router.use("/signin", signInRouter.router);
 
 module.exports = router;
-
-/*
-itme detail : ip:port/items/:itemId
-item list : ip:port/items
-*/
