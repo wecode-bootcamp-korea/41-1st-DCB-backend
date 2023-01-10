@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const itemsController = require("../controllers/itemsController");
+const payController = require("../controllers/payController");
 
 // router.get("/:itemId", itemsController.getItem);
 
