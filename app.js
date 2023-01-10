@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const router = require('./api/routes')
 
 const { myDataSource } = require("./api/models/myDataSource");
 const routes = require("./api/routes/index");
@@ -9,7 +10,7 @@ const { errorHandler } = require("./api/middleware/errorHandling");
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(morgan("combined"));
+app.use(morgan("tiny"));
 app.use(routes);
 app.use(errorHandler);
 
