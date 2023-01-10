@@ -6,12 +6,6 @@ const getCart = async (userId) => {
   return await cartList;
 };
 
-const addCart = async (userId, itemId, optionId) => {
-  const added = await cartDao.addCart(userId, itemId, optionId);
-  return added;
-};
-
 module.exports = {
   getCart,
-  addCart,
 };
