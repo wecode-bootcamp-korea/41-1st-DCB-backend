@@ -5,6 +5,9 @@ const validateToken = require("../middleware/auth");
 const { plusQuantity } = require("../models/cartDao");
 
 router.get("", validateToken, cartController.getCart);
+router.post("", validateToken, cartController.addCart);
+router.patch("", validateToken, cartController.updateQuantity);
+router.delete("", validateToken, cartController.deleteCart);
 
 module.exports = {
   router
