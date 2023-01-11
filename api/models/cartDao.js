@@ -28,6 +28,7 @@ const getCart = async (userId) => {
     `,
     [userId]
   );
+  console.log(cartList);
   return cartList;
 };
 
