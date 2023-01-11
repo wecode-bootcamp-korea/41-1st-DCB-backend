@@ -43,6 +43,8 @@ const addCart = async (userId, itemId, optionId, quantity) => {
       INSERT INTO
         carts (user_id, item_id, quantity)
       VALUES (?, ?, ?)
+      ON DUPLICATE KEY UPDATE
+       user_id = ?, item_id = ?, quantity= ?;
       `,
       [userId, itemId, quantity]
     );
