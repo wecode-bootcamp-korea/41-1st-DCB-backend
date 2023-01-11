@@ -11,7 +11,7 @@ const addOrder = async (userId) => {
       orders o
     WHERE
     `,
-    [ooooo]
+    [userId]
   );
   return result;
 };
