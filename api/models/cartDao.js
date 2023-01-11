@@ -28,7 +28,6 @@ const getCart = async (userId) => {
     `,
     [userId]
   );
-  console.log(cartList);
   return cartList;
 };
 
@@ -49,7 +48,6 @@ const addCart = async (userId, itemId, optionId, quantity) => {
     );
 
     const cartId = addedCart.insertId
-    console.log(addedCart.insertId);
     await queryRunner.query(
       `
       INSERT INTO
@@ -123,7 +121,7 @@ const deleteCart = async (itemId, userId) => {
     DELETE FROM
       carts c
     WHERE
-      c.item_id IN (?);
+      c.item_id IN (?) AND c.user_id = ?;
     `,
     [itemId, userId]
   );
