@@ -4,12 +4,12 @@ const addOrder = async (userId) => {
   const result = await myDataSource.query(
     `
     INSERT INTO
-      orders o (userId, statusId)
+      orders o (userId)
     SELECT
-      
+      u.id
     FROM
-      users u AND order_status os
-    WHERE
+      users u
+    WHERE u.id = ?
     `,
     [userId]
   );
