@@ -7,7 +7,7 @@ const getCart = asyncErrorHandler(async (req, res) => {
 });
 
 const addCart = asyncErrorHandler(async (req, res) => {
-  const addedCart = await cartService.addCart(req.userId, req.body.itemId, req.body.optionId, req.body.quantity);
+  const addedCart = await cartService.addCart(req.userId, req.body.itemId, req.body.optionId);
   console.log(req)
   return res.status(201).json({ data: addedCart });
 });
