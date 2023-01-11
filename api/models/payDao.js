@@ -1,16 +1,22 @@
 const { myDataSource } = require("./myDataSource");
 
-const blablabla = async (blaId, labishId) => {
+const addOrder = async (userId) => {
   const result = await myDataSource.query(
     `
+    INSERT INTO
 
+    SELECT
+
+    FROM
+      orders o
+    WHERE
     `,
-    [blaId, labishId]
+    [ooooo]
   );
   return result;
 };
 
 
 module.exports = {
-  blablabla,
+  addOrder
 }
