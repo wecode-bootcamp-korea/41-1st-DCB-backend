@@ -7,32 +7,40 @@ const getCart = asyncErrorHandler(async (req, res) => {
 });
 
 const addCart = asyncErrorHandler(async (req, res) => {
-  const addedCart = await cartService.addCart(req.userId, req.body.itemId, req.body.optionId, req.body.quantity);
-  if (!req.itemId) {
+  const { itemId, optionId, quantity } = req.body
+  const userId = req.userId
+
+  if (!itemId || !quantity) {
     const err = new Error("KEY_ERROR");
     err.statusCode = 400;
     throw err;
   }
+  const addedCart = await cartService.addCart(userId, itemId, optionId, quantity);
   return res.status(201).json({ data: addedCart });
 });
 
 const updateQuantity = asyncErrorHandler(async (req, res) => {
-  const result = await cartService.updateQuantity(req.body.quantity, req.body.itemId, req.userId)
-  if (!req.itemId) {
+  const { itemId, quantity } = req.body
+  const userId = req.userId
+
+  if (!itemId || !quantity) {
     const err = new Error("KEY_ERROR");
     err.statusCode = 400;
     throw err;
   }
+  const result = await cartService.updateQuantity(userId, itemId, quantity);
   return res.status(200).json({ data: result });
 })
 
 const deleteCart = asyncErrorHandler(async (req, res) => {
-  await cartService.deleteCart(req.query.itemId, req.userId);
-  if (!req.itemId) {
+  const userId = req.userId
+  const { itemId } = req.query
+  if (!itemId) {
     const err = new Error("KEY_ERROR");
     err.statusCode = 400;
     throw err;
   }
+  await cartService.deleteCart(itemId, userId);
   return res.status(200).json({ message: "delete complete" });
 });
 
