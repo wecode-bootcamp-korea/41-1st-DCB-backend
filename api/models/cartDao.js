@@ -33,10 +33,8 @@ const getCart = async (userId) => {
 
 const addCart = async (userId, itemId, optionId, quantity) => {
   const queryRunner = myDataSource.createQueryRunner();
-
   await queryRunner.connect();
   await queryRunner.startTransaction();
-
   try {
     const addedCart = await queryRunner.query(
       `
@@ -48,7 +46,6 @@ const addCart = async (userId, itemId, optionId, quantity) => {
       `,
       [userId, itemId, quantity, userId, itemId, quantity]
     );
-
     const cartId = addedCart.insertId;
     if (cartId != 0) {
       await queryRunner.query(
