@@ -10,7 +10,6 @@ const addOrder = async (userId) => {
   return result;
 };
 
-
 module.exports = {
   addOrder
 }
