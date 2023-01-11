@@ -9,7 +9,7 @@ const getCart = asyncErrorHandler(async (req, res) => {
 
 const addCart = asyncErrorHandler(async (req, res) => {
   const addedCart = await cartService.addCart(req.userId, req.body.itemId, req.body.optionId, req.body.quantity);
-  if (!userId) {
+  if (!req.userId) {
     const err = new Error("KEY_ERROR");
     err.statusCode = 400;
     throw err;

@@ -46,19 +46,23 @@ const addCart = async (userId, itemId, optionId, quantity) => {
       ON DUPLICATE KEY UPDATE
        user_id = ?, item_id = ?, quantity= ?;
       `,
-      [userId, itemId, quantity]
+      [userId, itemId, quantity, userId, itemId, quantity]
     );
+    console.log(addedCart);
 
-    const cartId = addedCart.insertId
-    await queryRunner.query(
-      `
+    const cartId = addedCart.insertId;
+    if (cartId != 0) {
+      await queryRunner.query(
+        `
       INSERT INTO
         cart_item_options(cart_item_id, option_id)
       VALUES (?,?)
+      ON DUPLICATE KEY UPDATE
+       cart_item_id = ?, option_id = ?;
       `,
-      [cartId, optionId]
-    );
-
+        [cartId, optionId, cartId, optionId]
+      );
+    }
     const [cart] = await queryRunner.query(
       `
       SELECT
@@ -82,7 +86,7 @@ const addCart = async (userId, itemId, optionId, quantity) => {
       INNER JOIN option_categories oc ON o.category_id=oc.id
       INNER JOIN items i ON i.id=c.item_id
       WHERE i.id = ?
-      GROUP BY i.id;
+      GROUP BY c.id;
       `,
       [itemId]
     );
@@ -93,6 +97,7 @@ const addCart = async (userId, itemId, optionId, quantity) => {
     return cart;
 
   } catch (error) {
+    console.log(error);
     await queryRunner.rollbackTransaction();
     await queryRunner.release();
 
