@@ -31,7 +31,7 @@ const getCart = async (userId) => {
   return cartList;
 };
 
-const addCart = async (userId, itemId, optionId) => {
+const addCart = async (userId, itemId, optionId, quantity) => {
   const queryRunner = myDataSource.createQueryRunner();
 
   await queryRunner.connect();
@@ -42,9 +42,9 @@ const addCart = async (userId, itemId, optionId) => {
       `
       INSERT INTO
         carts (user_id, item_id, quantity)
-      VALUES (?, ?, 1)
+      VALUES (?, ?, ?)
       `,
-      [userId, itemId]
+      [userId, itemId, quantity]
     );
 
     const cartId = addedCart.insertId
