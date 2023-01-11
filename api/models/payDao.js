@@ -1,6 +1,6 @@
 const { myDataSource } = require("./myDataSource");
 
-const addOrder = async (points) => {
+const addOrder = async (userId, itemId, optionId, quantity, points) => {
   const orderId = await myDataSource.query(
     `
     INSERT INTO
@@ -8,7 +8,7 @@ const addOrder = async (points) => {
     SELECT
       d
     `,
-    [없다치고]
+    [userId, itemId, optionId, quantity, points]
   );
   return result;
 };
