@@ -8,7 +8,7 @@ const getCart = asyncErrorHandler(async (req, res) => {
 
 const addCart = asyncErrorHandler(async (req, res) => {
   const addedCart = await cartService.addCart(req.userId, req.body.itemId, req.body.optionId, req.body.quantity);
-  if (!req.userId) {
+  if (!req.itemId) {
     const err = new Error("KEY_ERROR");
     err.statusCode = 400;
     throw err;
@@ -18,7 +18,7 @@ const addCart = asyncErrorHandler(async (req, res) => {
 
 const updateQuantity = asyncErrorHandler(async (req, res) => {
   const result = await cartService.updateQuantity(req.body.quantity, req.body.itemId, req.userId)
-  if (!userId) {
+  if (!req.itemId) {
     const err = new Error("KEY_ERROR");
     err.statusCode = 400;
     throw err;
@@ -28,7 +28,7 @@ const updateQuantity = asyncErrorHandler(async (req, res) => {
 
 const deleteCart = asyncErrorHandler(async (req, res) => {
   await cartService.deleteCart(req.query.itemId, req.userId);
-  if (!userId) {
+  if (!req.itemId) {
     const err = new Error("KEY_ERROR");
     err.statusCode = 400;
     throw err;
