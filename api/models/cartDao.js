@@ -48,7 +48,6 @@ const addCart = async (userId, itemId, optionId, quantity) => {
       `,
       [userId, itemId, quantity, userId, itemId, quantity]
     );
-    console.log(addedCart);
 
     const cartId = addedCart.insertId;
     if (cartId != 0) {
@@ -90,17 +89,12 @@ const addCart = async (userId, itemId, optionId, quantity) => {
       `,
       [itemId]
     );
-
     await queryRunner.commitTransaction();
     await queryRunner.release();
-
     return cart;
-
   } catch (error) {
-    console.log(error);
     await queryRunner.rollbackTransaction();
     await queryRunner.release();
-
     const err = new Error("TRANSACTION  FAILED");
     err.statusCode = 400;
     throw err;

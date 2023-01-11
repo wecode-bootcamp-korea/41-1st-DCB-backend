@@ -8,7 +8,6 @@ const getCart = async (userId) => {
 
 const addCart = async (userId, itemId, optionId, quantity) => {
   const cart = await cartDao.addCart(userId, itemId, optionId, quantity);
-
   return cart;
 };
 
