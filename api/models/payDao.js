@@ -1,11 +1,14 @@
 const { myDataSource } = require("./myDataSource");
 
-const addOrder = async (userId) => {
-  const result = await myDataSource.query(
+const addOrder = async (points) => {
+  const orderId = await myDataSource.query(
     `
-
+    INSERT INTO
+      orders o
+    SELECT
+      d
     `,
-    [userId]
+    [없다치고]
   );
   return result;
 };
