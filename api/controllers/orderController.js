@@ -9,12 +9,6 @@ const order = asyncErrorHandler(async (request, response) => {
   return response.status(200).send("orderSuccess");
 });
 
-const getOrder = asyncErrorHandler(async (request, response) => {
-  const userId = request.userId;
-  const result = await orderService.getOrder(userId);
-  return response.status(200).json({ data: result });
-});
-
 const loadOrderStatus = asyncErrorHandler(async (req, res) => {
   const { oiOrderId } = req.body;
   const userId = req.userId;

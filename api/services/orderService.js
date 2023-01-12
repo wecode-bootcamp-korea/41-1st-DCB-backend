@@ -17,10 +17,6 @@ const order = async (userId, cartId, totalPrice, paymentMethod) => {
   return result;
 };
 
-const getOrder = async (userId) => {
-  return await orderDao.getOrder(userId);
-};
-
 const loadOrderStatus = async (userId, oiOrderId) => {
   const result = await orderDao.loadOrderStatus(userId, oiOrderId);
   return result;

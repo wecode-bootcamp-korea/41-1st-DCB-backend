@@ -68,13 +68,7 @@ const order = async (userId, cartId, totalPrice, paymentMethod) => {
     const [itemsTableStartId] = await queryRunner.query(
       `
       SELECT last_insert_id() as id;
-  `
-    );
-    const deleteItemsTable = await queryRunner.query(
       `
-      DELETE FROM carts
-      WHERE id IN (?);`,
-      [cartId]
     );
     let itemsIdArray = [];
     const cartIdLength = typeof cartId == "string" ? 1 : cartId.length;
@@ -96,6 +90,12 @@ const order = async (userId, cartId, totalPrice, paymentMethod) => {
         [itemsIdArray[0], cartId]
       );
     }
+    const deleteItemsTable = await queryRunner.query(
+      `
+      DELETE FROM carts
+      WHERE id IN (?);`,
+      [cartId]
+    );
     const deleteItemsOptionTable = await queryRunner.query(
       `DELETE FROM cart_item_options WHERE cart_item_id IN (?)`,
       [cartId]

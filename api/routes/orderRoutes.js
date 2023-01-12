@@ -3,7 +3,7 @@ const router = express.Router();
 const orderController = require("../controllers/orderController");
 const validateToken = require("../middleware/auth");
 
-router.post("", validateToken, orderController.addOrder);
+router.post("", validateToken, orderController.order);
 router.get("", validateToken, orderController.loadOrderStatus);
 
 module.exports = {
