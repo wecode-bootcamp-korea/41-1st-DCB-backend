@@ -15,7 +15,7 @@ const userPoints = async (userId) => {
     const error = new Error("Unknown Error during points");
     error.statusCode = 400;
     throw error;
-  }
+  };
 };
 
 const createOrderNumber = () => {
