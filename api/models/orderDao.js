@@ -70,26 +70,22 @@ const createOrder = async (userId, cartId, totalPrice, paymentMethod) => {
       SELECT last_insert_id() as id;
       `
     );
+	  
     let itemsIdArray = [];
-    const cartIdLength = typeof cartId == "string" ? 1 : cartId.length;
+    const cartIdLength = cartId.length;
     for (let i = 0; i < cartIdLength; i++) {
       itemsIdArray.push(Number(itemsTableStartId.id) + i);
     }
-    if (cartIdLength > 1) {
-      for (let i = 0; i < itemsIdArray.length; i++) {
-        const itemsOptionTable = await queryRunner.query(
-          `INSERT INTO order_item_options(order_item_id,option_id)
-      SELECT ?,option_id FROM cart_item_options WHERE cart_item_id=?;  `,
+	  
+    for (let i = 0; i < itemsIdArray.length; i++) {
+      const itemsOptionTable = await queryRunner.query(
+       `
+       INSERT INTO order_item_options(order_item_id,option_id)
+       SELECT ?,option_id FROM cart_item_options WHERE cart_item_id=?;  `,
           [itemsIdArray[i], cartId[i]]
         );
       }
-    } else {
-      const itemsOptionTable = await queryRunner.query(
-        `INSERT INTO order_item_options(order_item_id,option_id)
-      SELECT ?,option_id FROM cart_item_options WHERE cart_item_id=?;  `,
-        [itemsIdArray[0], cartId]
-      );
-    }
+	  
     const deleteItemsTable = await queryRunner.query(
       `
       DELETE FROM carts
