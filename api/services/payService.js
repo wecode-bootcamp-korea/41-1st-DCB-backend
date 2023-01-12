@@ -7,12 +7,12 @@ const addOrder = async (userId, itemId, optionId, quantity, points, totalPrice) 
   return await result;
 };
 
-const loadPayStatus = async (userId, osId) => {
-  const result = await payDao.loadPayStatus(userId, osId);
+const loadOrderStatus = async (userId, oiOrderId) => {
+  const result = await payDao.loadOrderStatus(userId, oiOrderId);
   return result;
 }
 
 module.exports = {
   addOrder,
-  loadPayStatus
+  loadOrderStatus
 };

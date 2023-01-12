@@ -67,13 +67,9 @@ const addOrder = async (userId, itemId, optionId, quantity, points, totalPrice) 
   };
 };
 
-const loadPayStatus = async (userId, osId) => {
-  const queryRunner = myDataSource.createQueryRunner();
-  await queryRunner.connect();
-  await queryRunner.startTransaction();
-  try {
-    const payStatus = await queryRunner.query(
-      `
+const loadOrderStatus = async (userId, oiOrderId) => {
+  const result = await myDataSource.query(
+    `
       SELECT
         os.id AS osId,
         os.status AS osStatus,
@@ -88,24 +84,15 @@ const loadPayStatus = async (userId, osId) => {
         users u ON u.id = o.user_id
       INNER JOIN
 	    	order_items oi ON oi.order_id = o.id
-      WHERE u.id = ? AND os.id = ?
+      WHERE u.id = ? AND oi.order_id = ?
       GROUP BY o.id
-      `,
-      [userId, osId]
-    );
-    await queryRunner.commitTransaction();
-    await queryRunner.release();
-    return result;
-  } catch (error) {
-    await queryRunner.rollbackTransaction();
-    await queryRunner.release();
-    const err = new Error("TRANSACTION  FAILED");
-    err.statusCode = 400;
-    throw err;
-  };
+    `,
+    [userId, oiOrderId]
+  );
+  return result;
 };
 
 module.exports = {
   addOrder,
-  loadPayStatus
+  loadOrderStatus
 }
