@@ -17,12 +17,12 @@ const createOrder = async (userId, cartId, totalPrice, paymentMethod) => {
   return result;
 };
 
-const loadOrderStatus = async (userId, oiOrderId) => {
-  const result = await orderDao.loadOrderStatus(userId, oiOrderId);
+const getOrderStatus = async (userId) => {
+  const result = await orderDao.getOrderStatus(userId);
   return result;
-}
+};
 
 module.exports = {
   createOrder,
-  loadOrderStatus
+  getOrderStatus,
 };

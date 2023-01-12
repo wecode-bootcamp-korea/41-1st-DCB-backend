@@ -8,19 +8,18 @@ const createOrder = asyncErrorHandler(async (request, response) => {
   return response.status(201).send("orderSuccess");
 });
 
-const loadOrderStatus = asyncErrorHandler(async (req, res) => {
-  const { oiOrderId } = req.body;
+const getOrderStatus = asyncErrorHandler(async (req, res) => {
   const userId = req.userId;
-  if (!userId || !oiOrderId) {
-    const err = new Error("KEY_ERROR");
+  if (!userId) {
+    const err = new Error("GETTING ORDER STATUS ERROR");
     err.statusCode = 400;
     throw err;
-  };
-  const orderStatus = await orderService.loadOrderStatus(userId, oiOrderId);
+  }
+  const orderStatus = await orderService.getOrderStatus(userId);
   return res.status(200).json({ data: orderStatus });
 });
 
 module.exports = {
   createOrder,
-  loadOrderStatus
+  getOrderStatus,
 };

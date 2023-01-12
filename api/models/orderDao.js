@@ -15,7 +15,7 @@ const userPoints = async (userId) => {
     const error = new Error("Unknown Error during points");
     error.statusCode = 400;
     throw error;
-  };
+  }
 };
 
 const createOrderNumber = () => {
@@ -70,22 +70,22 @@ const createOrder = async (userId, cartId, totalPrice, paymentMethod) => {
       SELECT last_insert_id() as id;
       `
     );
-	  
+
     let itemsIdArray = [];
     const cartIdLength = cartId.length;
     for (let i = 0; i < cartIdLength; i++) {
       itemsIdArray.push(Number(itemsTableStartId.id) + i);
     }
-	  
+
     for (let i = 0; i < itemsIdArray.length; i++) {
       const itemsOptionTable = await queryRunner.query(
-       `
+        `
        INSERT INTO order_item_options(order_item_id,option_id)
        SELECT ?,option_id FROM cart_item_options WHERE cart_item_id=?;  `,
-          [itemsIdArray[i], cartId[i]]
-        );
-      }
-	  
+        [itemsIdArray[i], cartId[i]]
+      );
+    }
+
     const deleteItemsTable = await queryRunner.query(
       `
       DELETE FROM carts
@@ -108,27 +108,39 @@ const createOrder = async (userId, cartId, totalPrice, paymentMethod) => {
   }
 };
 
-const loadOrderStatus = async (userId, oiOrderId) => {
+const getOrderStatus = async (userId) => {
   const result = await myDataSource.query(
     `
-      SELECT
-        os.id AS orderStatusId,
-        os.status AS orderStatus,
-        o.order_number AS OrderNumber,
-        u.id AS userId,
-        oi.order_id AS OrderId
-      FROM
-        order_status os
-      INNER JOIN
-        orders o ON os.id = o.status_id
-      INNER JOIN
-        users u ON u.id = o.user_id
-      INNER JOIN
-	    	order_items oi ON oi.order_id = o.id
-      WHERE u.id = ? AND oi.order_id = ?
-      GROUP BY o.id
+    SELECT
+    o.user_id as userId,
+    o.created_at as orderCreateAt,
+    os.status as orderStatus,
+    o.order_number as orderNumber,
+    p.total_price as totalPrice,
+    pm.method as paymentMethod,
+   JSON_ARRAYAGG(
+    JSON_OBJECT(
+    "item_id",oi.item_id,
+    "item_name",i.name,
+    "item_thumbnail",i.thumbnail,
+    "quantity",oi.quantity,
+    "item_price",i.price,
+    "option_category",opc.category,
+    "option",op.content)
+    )as itemLists
+    FROM orders o
+    LEFT JOIN order_status os ON o.status_id=os.id
+    LEFT JOIN payments p ON p.order_id=o.id
+    LEFT JOIN payment_methods pm ON p.method_id=pm.id
+    LEFT JOIN order_items oi ON oi.order_id=o.id
+    LEFT JOIN items i ON oi.item_id=i.id
+    LEFT JOIN order_item_options oio ON oio.order_item_id=oi.id
+    LEFT JOIN options op ON op.id=oio.option_id
+    LEFT JOIN option_categories opc ON opc.id=op.category_id
+    WHERE o.user_id=?
+    GROUP BY o.order_number,o.user_id,os.status,o.created_at,p.total_price,pm.method;
     `,
-    [userId, oiOrderId]
+    [userId]
   );
   return result;
 };
@@ -136,5 +148,5 @@ const loadOrderStatus = async (userId, oiOrderId) => {
 module.exports = {
   userPoints,
   createOrder,
-  loadOrderStatus
+  getOrderStatus,
 };
