@@ -42,7 +42,7 @@ const addCart = async (userId, itemId, optionId, quantity) => {
         carts (user_id, item_id, quantity)
       VALUES (?, ?, ?)
       ON DUPLICATE KEY UPDATE
-       user_id = ?, item_id = ?, quantity= ?;
+       user_id = ?, item_id = ?, quantity= ?
       `,
       [userId, itemId, quantity, userId, itemId, quantity]
     );
@@ -54,11 +54,11 @@ const addCart = async (userId, itemId, optionId, quantity) => {
         cart_item_options(cart_item_id, option_id)
       VALUES (?,?)
       ON DUPLICATE KEY UPDATE
-       cart_item_id = ?, option_id = ?;
+       cart_item_id = ?, option_id = ?
       `,
         [cartId, optionId, cartId, optionId]
       );
-    }
+    };
     const [cart] = await queryRunner.query(
       `
       SELECT
@@ -96,7 +96,7 @@ const addCart = async (userId, itemId, optionId, quantity) => {
     err.statusCode = 400;
     throw err;
   };
-}
+};
 
 const updateQuantity = async (quantity, itemId, userId) => {
   const result = await myDataSource.query(
@@ -109,9 +109,9 @@ const updateQuantity = async (quantity, itemId, userId) => {
       carts.item_id = ? AND carts.user_id = ?
     `,
     [quantity, itemId, userId]
-  )
+  );
   return result;
-}
+};
 
 const deleteCart = async (itemId, userId) => {
   const result = await myDataSource.query(
