@@ -18,7 +18,7 @@ const addOrder = async (userId, itemId, optionId, quantity, points, totalPrice) 
         order_status os ON os.id = u.id
       WHERE
         u.id = ?
-      GROUP BY u.id = 1
+      GROUP BY u.id
       `,
       [userId]
     );
@@ -33,7 +33,6 @@ const addOrder = async (userId, itemId, optionId, quantity, points, totalPrice) 
       [orderIdResult, itemId, quantity]
     );
     const orderItemsIdResult = orderItemsId.insertId;
-
     const result = await queryRunner.query(
       `
       INSERT INTO
@@ -43,18 +42,30 @@ const addOrder = async (userId, itemId, optionId, quantity, points, totalPrice) 
       `,
       [orderItemsIdResult, optionId]
     );
-
     // 결과문 출력해서 보여주려면 아래 쿼리문 작성
-    // const [result] = await queryRunner.query(
+    // const [So] = await queryRunner.query( // 쿼리 미완성
     //   `
     //   SELECT
+    //     o.user_id AS oUserId,
+    //     o.status_id AS oStatusId,
+    //     oi.order_id AS oiOrderId,
+    //     oi.item_id AS oiItemId,
+    //     oi.quantity AS oiQuantity,
+    //     oio.order_item_id AS oioOrderItemId,
+    //     oio.option_id AS oioOptionId
     //   FROM
+    //     orders o
+    //   JOIN
+    //     order_items oi ON oi.order_id = o.id
+    //   JOIN
+    //     order_item_options oio
     //   WHERE
+    //     o.user_id = 4
     //   GROUP BY
+    //     o.user_id
     //   `,
-    //   []
+    //   [userId]
     // );
-
     await queryRunner.commitTransaction();
     await queryRunner.release();
     return result;
