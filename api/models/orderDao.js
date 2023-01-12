@@ -28,7 +28,7 @@ const createOrderNumber = () => {
   return orderNumber;
 };
 
-const order = async (userId, cartId, totalPrice, paymentMethod) => {
+const createOrder = async (userId, cartId, totalPrice, paymentMethod) => {
   const orderNumber = createOrderNumber();
   const queryRunner = await myDataSource.createQueryRunner();
   await queryRunner.connect();
@@ -116,11 +116,11 @@ const loadOrderStatus = async (userId, oiOrderId) => {
   const result = await myDataSource.query(
     `
       SELECT
-        os.id AS osId,
-        os.status AS osStatus,
-        o.order_number AS oOrderNumber,
-        u.id AS uId,
-        oi.order_id AS oiOrderId
+        os.id AS orderStatusId,
+        os.status AS orderStatus,
+        o.order_number AS OrderNumber,
+        u.id AS userId,
+        oi.order_id AS OrderId
       FROM
         order_status os
       INNER JOIN
@@ -139,6 +139,6 @@ const loadOrderStatus = async (userId, oiOrderId) => {
 
 module.exports = {
   userPoints,
-  order,
+  createOrder,
   loadOrderStatus
 };

@@ -4,7 +4,7 @@ const orderController = require("../controllers/orderController");
 const validateToken = require("../middleware/auth");
 
 router.post("", validateToken, orderController.order);
-router.get("", validateToken, orderController.loadOrderStatus);
+router.get("", validateToken, orderController.getOrderStatus);
 
 module.exports = {
   router

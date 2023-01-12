@@ -1,14 +1,14 @@
 require("dotenv").config();
 const orderDao = require("../models/orderDao");
 
-const order = async (userId, cartId, totalPrice, paymentMethod) => {
+const createOrder = async (userId, cartId, totalPrice, paymentMethod) => {
   const userPoints = await orderDao.userPoints(userId);
   if (userPoints.point < totalPrice) {
     const err = new Error("You don't have enough money");
     err.statusCode = 400;
     throw err;
   }
-  const result = await orderDao.order(
+  const result = await orderDao.createOrder(
     userId,
     cartId,
     totalPrice,
@@ -23,6 +23,6 @@ const loadOrderStatus = async (userId, oiOrderId) => {
 }
 
 module.exports = {
-  order,
+  createOrder,
   loadOrderStatus
 };

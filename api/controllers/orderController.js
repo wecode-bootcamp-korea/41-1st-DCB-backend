@@ -1,12 +1,11 @@
 const orderService = require("../services/orderService");
 const { asyncErrorHandler } = require("../middleware/errorHandling");
 
-const order = asyncErrorHandler(async (request, response) => {
+const createOrder = asyncErrorHandler(async (request, response) => {
   const userId = request.userId;
-  const { cartId } = request.query;
-  const { totalPrice, paymentMethod } = request.body;
+  const { cartId, totalPrice, paymentMethod } = request.body;
   await orderService.order(userId, cartId, totalPrice, paymentMethod);
-  return response.status(200).send("orderSuccess");
+  return response.status(201).send("orderSuccess");
 });
 
 const loadOrderStatus = asyncErrorHandler(async (req, res) => {
@@ -22,6 +21,6 @@ const loadOrderStatus = asyncErrorHandler(async (req, res) => {
 });
 
 module.exports = {
-  order,
+  createOrder,
   loadOrderStatus
 };
