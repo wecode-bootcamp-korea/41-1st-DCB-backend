@@ -24,6 +24,5 @@ const loadOrderStatus = async (userId, oiOrderId) => {
 
 module.exports = {
   order,
-  getOrder,
   loadOrderStatus
 };

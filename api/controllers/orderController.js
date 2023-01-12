@@ -23,6 +23,5 @@ const loadOrderStatus = asyncErrorHandler(async (req, res) => {
 
 module.exports = {
   order,
-  getOrder,
   loadOrderStatus
 };
