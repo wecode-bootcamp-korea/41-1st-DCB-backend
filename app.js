@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const router = require('./api/routes')
+const router = require("./api/routes");
 
 const { myDataSource } = require("./api/models/myDataSource");
 const routes = require("./api/routes/index");
