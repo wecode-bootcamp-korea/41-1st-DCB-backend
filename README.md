@@ -48,7 +48,7 @@
 
 ## Team
 
-(https://github.com/iharsh234)  | (https://www.quandl.com/) | | | |(https://github.com/JongHoB) |
+(https://github.com/iharsh234)  | (https://www.quandl.com/) | | | (https://github.com/5ERN)|(https://github.com/JongHoB) |
 ---|---|---|---|---|---|
 서지연|이다혜|이세윤|장찬영|김승|백종호|
 
