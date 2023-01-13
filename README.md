@@ -25,10 +25,12 @@
 |장바구니|||
 |상세 페이지|![details_option](https://user-images.githubusercontent.com/78012131/212272659-8cef92f5-7de1-4479-9769-fe892bfd6c9b.gif) ![details_noOption](https://user-images.githubusercontent.com/78012131/212272684-4238aad5-04ad-4086-857b-f851aea02129.gif)
 ||
-|결제|(https://user-images.githubusercontent.com/109456589/212274643-642b3ebc-ede4-4c1b-ab68-9701027f25ea.mov)||
+|결제|(![ezgif com-gif-maker](https://user-images.githubusercontent.com/109456589/212275488-5d4ff465-abe6-42cb-89a2-94d211acad8d.gif)
+)||
 |네비게이션 바|||
 
 
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/109456589/212275488-5d4ff465-abe6-42cb-89a2-94d211acad8d.gif)
 
 
 
