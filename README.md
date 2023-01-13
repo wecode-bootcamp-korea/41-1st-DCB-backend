@@ -35,13 +35,13 @@
 
 ## 기술 스택
 
-###백엔드
+백엔드
 * Express
 * Node.js
 * TYPEORM
 * ORACLE CLOUD
 
-###프론트엔드
+프론트엔드
 * React
 * React-Router
 * SASS
