@@ -14,8 +14,8 @@
 |메인 페이지|<img src = "https://user-images.githubusercontent.com/78012131/212270832-a3db4763-49ae-4495-aca3-f663f34072a7.gif" width = "400px">|프론트엔드:서지연/백엔드:백종호|
 | 회원가입 |<img src = "https://user-images.githubusercontent.com/78012131/212285843-f94c0a91-ecaf-49fa-a009-ee78629b295d.gif" width = "400px">|프론트엔드:이다혜/백엔드:백종호|
 | 로그인 |<img src = "https://user-images.githubusercontent.com/78012131/212284013-5be69786-5fe0-48af-aed8-588fde1360af.gif" width = "400px">|프론트엔드:이다혜/백엔드:백종호|
-|카테고리 & 아이템 리스트|<img src = "https://user-images.githubusercontent.com/78012131/212270912-985d50e9-81b0-4c0d-87e4-051aa381b416.gif" width = "400px">|백엔드:백종호|
-|검색|<img src = "https://user-images.githubusercontent.com/78012131/212270879-3f34fe3c-e3cb-404d-b39f-0c86a0113bc9.gif" width = "400px">|백엔드:백종호|
+|카테고리 & 아이템 리스트|<img src = "https://user-images.githubusercontent.com/78012131/212270912-985d50e9-81b0-4c0d-87e4-051aa381b416.gif" width = "400px">|프론트엔드:서지연/백엔드:백종호|
+|검색|<img src = "https://user-images.githubusercontent.com/78012131/212270879-3f34fe3c-e3cb-404d-b39f-0c86a0113bc9.gif" width = "400px">|프론트엔드:서지연/백엔드:백종호|
 |장바구니||프론트엔드:이세윤/백엔드:김 승|
 |상세 페이지|<img src = "https://user-images.githubusercontent.com/78012131/212272684-4238aad5-04ad-4086-857b-f851aea02129.gif" width = "400px">|프론트엔드:장찬영/백엔드:백종호|
 |결제||프론트엔드:이세윤/백엔드:김 승/백종호|
