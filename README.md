@@ -29,9 +29,6 @@
 |네비게이션 바|||
 
 
-![details_noOption](https://user-images.githubusercontent.com/78012131/212272684-4238aad5-04ad-4086-857b-f851aea02129.gif)
-
-
 ##  DB ERD
 
 <img width="1147" alt="image" src="https://user-images.githubusercontent.com/78012131/212272946-540b86fa-9eb8-42a3-bcc2-c1e26bc74d35.png">
