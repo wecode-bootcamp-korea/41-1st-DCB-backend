@@ -25,13 +25,8 @@
 |장바구니|||
 |상세 페이지|![details_option](https://user-images.githubusercontent.com/78012131/212272659-8cef92f5-7de1-4479-9769-fe892bfd6c9b.gif) ![details_noOption](https://user-images.githubusercontent.com/78012131/212272684-4238aad5-04ad-4086-857b-f851aea02129.gif)
 ||
-|결제|(![ezgif com-gif-maker](https://user-images.githubusercontent.com/109456589/212275488-5d4ff465-abe6-42cb-89a2-94d211acad8d.gif)
-)||
+|결제|||
 |네비게이션 바|||
-
-
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/109456589/212275488-5d4ff465-abe6-42cb-89a2-94d211acad8d.gif)
-
 
 
 ##  DB ERD
@@ -42,8 +37,11 @@
 ## 기술 스택
 
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
+* Express
+* Node.js
+* TYPEORM
+* ORACLE CLOUD
+* React
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -53,16 +51,10 @@
 
 ## Team
 
-(https://github.com/iharsh234)  | (https://www.quandl.com/) | | | (https://github.com/5ERN)|(https://github.com/JongHoB) |
+(https://github.com/iharsh234)  | (https://www.quandl.com/) | | | |(https://github.com/JongHoB) |
 ---|---|---|---|---|---|
 서지연|이다혜|이세윤|장찬영|김승|백종호|
 
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
 
