@@ -7,7 +7,7 @@
 
 
 
-## 🥲 41기 C팀 DCB(Don't Cry Baby)
+## 🥲 DCB(Don't Cry Baby)
 
 <br/>
 • `FRONTEND` : 서지연, 이다혜, 이세윤, 장찬영<br/>
