@@ -4,7 +4,7 @@ const { asyncErrorHandler } = require("../middleware/errorHandling");
 const createOrder = asyncErrorHandler(async (request, response) => {
   const userId = request.userId;
   const { cartId, totalPrice, paymentMethod } = request.body;
-  await orderService.order(userId, cartId, totalPrice, paymentMethod);
+  await orderService.createOrder(userId, cartId, totalPrice, paymentMethod);
   return response.status(201).send("orderSuccess");
 });
 
