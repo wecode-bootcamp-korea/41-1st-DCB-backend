@@ -28,9 +28,11 @@
 | 로그인                   | <img src = "https://user-images.githubusercontent.com/78012131/212284013-5be69786-5fe0-48af-aed8-588fde1360af.gif" width = "400px"> | 프론트엔드:이다혜/백엔드:백종호       |
 | 카테고리 & 아이템 리스트 | <img src = "https://user-images.githubusercontent.com/78012131/212270912-985d50e9-81b0-4c0d-87e4-051aa381b416.gif" width = "400px"> | 프론트엔드:서지연/백엔드:백종호       |
 | 검색                     | <img src = "https://user-images.githubusercontent.com/78012131/212270879-3f34fe3c-e3cb-404d-b39f-0c86a0113bc9.gif" width = "400px"> | 프론트엔드:서지연/백엔드:백종호       |
-| 장바구니                 |                                                                                                                                     | 프론트엔드:이세윤/백엔드:김 승        |
-| 상세 페이지              | <img src = "https://user-images.githubusercontent.com/78012131/212272684-4238aad5-04ad-4086-857b-f851aea02129.gif" width = "400px"> | 프론트엔드:장찬영/백엔드:김           |
-| 결제                     |                                                                                                                                     | 프론트엔드:이세윤/백엔드:김 승/백종호 |
+| 장바구니 추천상품          | <img src = "https://user-images.githubusercontent.com/118165018/212543416-39fa5686-30c1-4e08-aa1b-016be8681a72.gif" width = "400px"> | 프론트엔드:이세윤/백엔드:김 승        |
+| 장바구니 수량 조절         | <img src = "https://user-images.githubusercontent.com/118165018/212543514-98c962f4-6143-477d-8448-ff47f5aa4b94.gif" width = "400px"> | 프론트엔드:이세윤/백엔드:김 승        |
+| 장바구니 삭제             | <img src = "https://user-images.githubusercontent.com/118165018/212543507-89e6fd56-0040-4174-8d97-567d9ac0a0f2.gif" width = "400px"> | 프론트엔드:이세윤/백엔드:김 승        |
+| 결제                    | <img src = "https://user-images.githubusercontent.com/118165018/212543511-200eb22b-f04d-4ee4-8717-89a64f373276.gif" width = "400px"> | 프론트엔드:이세윤/백엔드:김 승/백종호 |
+| 상세 페이지              | <img src = "https://user-images.githubusercontent.com/78012131/212272684-4238aad5-04ad-4086-857b-f851aea02129.gif" width = "400px"> | 프론트엔드:장찬영/백엔드:김 승          |
 | 네비게이션 바            | <img src = "https://user-images.githubusercontent.com/78012131/212284028-5cd81f7c-d12a-4a9f-a648-6240028a5670.gif" width = "400px"> | 프론트엔드:이다혜                     |
 | 마이페이지               | <img src = "https://user-images.githubusercontent.com/78012131/212284620-95afec86-d3cf-49b3-901c-0ec7c2decdff.gif" width = "400px"> | 프론트엔드:이다혜                     |
 | Footer                   | <img src = "https://user-images.githubusercontent.com/78012131/212285091-b0e6f717-cf88-4f96-8d74-e3d06733d98d.gif" width = "400px"> | 프론트엔드:이다혜                     |
@@ -139,6 +141,16 @@ COMMON:
 ### 8. 마이페이지
 
 - 레이아웃 구현
+
+### 9. 상세페이지
+
+- 옵션 컴포넌트를 제작하고, Fetch를 통해 넘어오는 데이터를 파악하여 조건부렌더링을 통해 보여지도록 구현
+- 옵션의 갯수를 map함수를 통해 select 태그에 보여지도록 구현
+- 상품설명, 리뷰, 상품설명 각 컴포넌트를 제작하고 onClick 이벤트를 이용하여 보여지는 컴포넌트를 조작할 수 있도록 구현
+- 단품상품 구매시 Fetch를 통해 들어오는 상품의 가격정보와 수량 조절의 Input State를 곱하여 합산 가격을 도출
+- 장바구니의 정보를 받아오고, 현재 담으려는 상품이 기존에 있는 상품인지 판단할 수 있도록 하여 fetch의 보내는 매소드가 PETCH 매소드와 PoST 매소드를 자동으로 구분할 수 있도록 함
+- 상품설명 컴포넌트에 토글이벤트를 이용하여 유의사항을 제공
+- 동적 라우터를 이용하여 메인페이지와 상품리스트에서 클릭한 제품에 대한 상세페이지가 노출되도록 구현
 
 ## 추가 구현 사항
 
